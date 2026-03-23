@@ -1,14 +1,16 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import Header from "@/components/Header";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+import {ui} from "@clerk/themes";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const poppins = Poppins({
+  weight: ['400', '700'], // Specify the weights you need
+  subsets: ['latin'],
+  display: 'swap', // Ensures the font is displayed as soon as it is available
+  variable: '--font-poppins', // Define a CSS variable name
 });
 
 export const metadata = {
@@ -20,9 +22,26 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head />
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          
+          <ClerkProvider ui={ui}>
+            <Header />
+            
+            {children}
+            
+            </ClerkProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
