@@ -8,7 +8,7 @@ import { ModeToggle } from './ModeToggle'
 
 const Header = () => {
   return (
-    <header className='fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-10'>
+    <header className='fixed top-0 w-full border-b bg-background/30 dark:bg-background/0 backdrop-blur-md z-10'>
         <nav className='container mx-auto px-4 h-16 flex items-center justify-between'>
             <Link href={"/"}>
                 <Image src="/logo-single.png" alt="medimeet logo" height={60} width={200} className='h-10 w-auto object-contain' loading="eager"/>

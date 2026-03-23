@@ -10,21 +10,39 @@ import { creditBenefits, features, testimonials } from "@/lib/data";
 export default function Home() {
   return (
     <>
-      <section className="relative overflow-hidden py-32">
+      <section className="relative isolate overflow-hidden py-32">
+        {/* Top Gradient */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+        >
+          <div
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36rem] -translate-x-1/2 rotate-30 bg-gradient-to-tr from-green-200 via-emerald-200 to-green-300 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72rem]"
+          />
+        </div>
+
+        {/* Content */}
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <Badge variant="outline" className="px-4 py-4 bg-green-50 dark:bg-green-900">
+              <Badge className="px-4 py-2 bg-green-50 dark:bg-green-900">
                 Healthcare made simple
               </Badge>
+
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white leading-tight">
                 Connect with doctors <br />
                 <span className="gradient-title">anytime, anywhere</span>
               </h1>
+
               <p className="text-muted-foreground text-lg md:text-xl max-w-md">
                 Book appointments, consult via video, and manage your healthcare
                 journey all in one secure platform.
               </p>
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   asChild
@@ -35,6 +53,7 @@ export default function Home() {
                     Get Started <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
+
                 <Button
                   asChild
                   variant="outline"
@@ -46,6 +65,7 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Image */}
             <div className="relative h-[400px] lg:h-[500px] rounded-xl overflow-hidden">
               <Image
                 src="/banner2.png"
@@ -60,6 +80,20 @@ export default function Home() {
               />
             </div>
           </div>
+        </div>
+
+        {/* Bottom Gradient */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+        >
+          <div
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+           className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36rem] -translate-x-1/2 bg-gradient-to-tr from-green-200 via-emerald-200 to-green-300 opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72rem]"
+          />
         </div>
       </section>
 
@@ -194,9 +228,7 @@ export default function Home() {
                       </span>
                     </div>
                     <div>
-                      <h4 className="font-semibold ">
-                        {testimonial.name}
-                      </h4>
+                      <h4 className="font-semibold ">{testimonial.name}</h4>
                       <p className="text-sm text-muted-foreground">
                         {testimonial.role}
                       </p>
@@ -227,11 +259,7 @@ export default function Home() {
                   healthcare the way it should be.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    asChild
-                    size="lg"
-                    
-                  >
+                  <Button asChild size="lg">
                     <Link href="/sign-up">Sign Up Now</Link>
                   </Button>
                   <Button
