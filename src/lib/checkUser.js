@@ -14,7 +14,7 @@ export const checkUser = async () => {
         },
       });
 
-      if (!loggedInUser) {
+      if (loggedInUser) {
         return loggedInUser;
       }
 
@@ -30,11 +30,13 @@ export const checkUser = async () => {
               create:{
                 type:"CREDIT_PURCHASE",
                 packageId:"free_user",
-                amount:0,
+                amount:2,
               }
             }
         }
       })
+
+      return newUser;
 
     } catch (error) {}
   }
