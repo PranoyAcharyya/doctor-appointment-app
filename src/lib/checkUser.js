@@ -24,7 +24,15 @@ export const checkUser = async () => {
         data:{
             clerkUserId: user.id,
             name,
-            imageUrl:
+            imageUrl:user.imageUrl,
+            email:user.emailAddresses[0].emailAddress,
+            transactions:{
+              create:{
+                type:"CREDIT_PURCHASE",
+                packageId:"free_user",
+                amount:0,
+              }
+            }
         }
       })
 
