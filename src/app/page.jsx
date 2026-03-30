@@ -76,7 +76,7 @@ export default function Home() {
                 quality={75}
                 placeholder="blur"
                 blurDataURL="/banner2.png"
-                className="object-cover md:pt-14 rounded-xl"
+                className="object-contain md:pt-14 rounded-xl"
               />
             </div>
           </div>

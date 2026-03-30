@@ -1,11 +1,11 @@
 // "use client"
-import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
-import { Button } from './ui/button'
-import { ModeToggle } from './ModeToggle'
-import { checkUser } from '@/lib/checkUser'
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { Button } from "./ui/button";
+import { ModeToggle } from "./ModeToggle";
+import { checkUser } from "@/lib/checkUser";
 import {
   Calendar,
   CreditCard,
@@ -13,29 +13,40 @@ import {
   Stethoscope,
   User,
 } from "lucide-react";
+import { checkAndAllocateCredits } from "../../actions/credits";
+import { Badge } from "./ui/badge";
 
-const Header = async() => {
- const user =  await checkUser()
+const Header = async () => {
+  let user = await checkUser();
+
+  if (user?.role === "PATIENT") {
+    user = (await checkAndAllocateCredits(user)) || user;
+  }
+
   return (
-    <header className='fixed top-0 w-full border-b bg-background/30 dark:bg-background/0 backdrop-blur-md z-10'>
-        <nav className='container mx-auto px-4 h-16 flex items-center justify-between'>
-            <Link href={"/"}>
-                <Image src="/logo-single.png" alt="medimeet logo" height={60} width={200} className='h-10 w-auto object-contain' loading="eager"/>
-            </Link>
-            <div className='flex items-center space-x-4'>
-                <Show when="signed-out">
-              <SignInButton>
-                <Button variant='outlined'>Sign In</Button>
-              </SignInButton>
-              <SignUpButton>
-                <Button variant='secondary'>
-                  Sign Up
-                </Button>
-              </SignUpButton>
-            </Show>
-            <Show when="signed-in">
-
-              {/* Patient Links */}
+    <header className="fixed top-0 w-full border-b bg-background/30 dark:bg-background/0 backdrop-blur-md z-10">
+      <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <Link href={"/"}>
+          <Image
+            src="/logo-single.png"
+            alt="medimeet logo"
+            height={60}
+            width={200}
+            className="h-10 w-auto object-contain"
+            loading="eager"
+          />
+        </Link>
+        <div className="flex items-center space-x-4">
+          <Show when="signed-out">
+            <SignInButton>
+              <Button variant="outlined">Sign In</Button>
+            </SignInButton>
+            <SignUpButton>
+              <Button variant="secondary">Sign Up</Button>
+            </SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            {/* Patient Links */}
             {user?.role === "PATIENT" && (
               <Link href="/appointments">
                 <Button
@@ -51,7 +62,7 @@ const Header = async() => {
               </Link>
             )}
 
-               {/* Admin Links */}
+            {/* Admin Links */}
             {user?.role === "ADMIN" && (
               <Link href="/admin">
                 <Button
@@ -66,8 +77,8 @@ const Header = async() => {
                 </Button>
               </Link>
             )}
-              
-              {/* Unassigned Role */}
+
+            {/* Unassigned Role */}
             {user?.role === "UNASSIGNED" && (
               <Link href="/onboarding">
                 <Button
@@ -83,7 +94,32 @@ const Header = async() => {
               </Link>
             )}
 
-             <UserButton
+            {(!user || user?.role !== "ADMIN") && (
+              <Link href={user?.role === "PATIENT" ? "/pricing" : "/doctor"}>
+                <Badge
+                  variant="outline"
+                  className="h-9 bg-emerald-900/20 border-emerald-700/30 px-3 py-1 flex items-center gap-2"
+                >
+                  <CreditCard className="h-3.5 w-3.5 text-emerald-400" />
+                  <span className="text-emerald-400">
+                    {user && user.role !== "ADMIN" ? (
+                      <>
+                        {user.credits}{" "}
+                        <span className="hidden md:inline">
+                          {user?.role === "PATIENT"
+                            ? "Credits"
+                            : "Earned Credits"}
+                        </span>
+                      </>
+                    ) : (
+                      <>Pricing</>
+                    )}
+                  </span>
+                </Badge>
+              </Link>
+            )}
+
+            <UserButton
               appearance={{
                 elements: {
                   avatarBox: "w-10 h-10",
@@ -93,13 +129,12 @@ const Header = async() => {
               }}
               afterSignOutUrl="/"
             />
-
-            </Show>
-            <ModeToggle/>
-            </div>
-        </nav>
+          </Show>
+          <ModeToggle />
+        </div>
+      </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
