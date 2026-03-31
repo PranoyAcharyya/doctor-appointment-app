@@ -3,7 +3,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 import {ui} from "@clerk/themes";
 import { Toaster } from "sonner";
 
@@ -37,9 +36,9 @@ export default function RootLayout({ children }) {
           
           <ClerkProvider ui={ui}>
             <Header />
-            <Toaster richColors/>
-            {children}
             
+            {children}
+            <Toaster richColors />
             </ClerkProvider>
         </ThemeProvider>
       </body>

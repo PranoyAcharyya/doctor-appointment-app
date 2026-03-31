@@ -1,28 +1,28 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-const userFetch = (callback) => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+const useFetch = (cb) => {
+  const [data, setData] = useState(undefined);
+  const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
 
   const fn = async (...args) => {
     setLoading(true);
     setError(null);
+
     try {
-      const res = await callback(...args);
-      setData(res);
-    //   setLoading(false);
+      const response = await cb(...args);
+      setData(response);
       setError(null);
     } catch (error) {
       setError(error);
-      toast.error(error.message || "An error occurred");
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  return { data, loading, error, fn, setData, setLoading, setError };
+  return { data, loading, error, fn, setData };
 };
 
-export default userFetch;
+export default useFetch;

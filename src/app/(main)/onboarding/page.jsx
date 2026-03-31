@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, Stethoscope, User } from "lucide-react";
-import userFetch from "../../../../hooks/use-fetch";
+import useFetch from "../../../../hooks/use-fetch";
 import { setUserRole } from "../../../../actions/onBoarding";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 const doctorformSchema = z.object({
-  speciality: z.string().min(1, "Speciality is required"),
+  specialty: z.string().min(1, "Speciality is required"),
   experience: z
     .number()
     .min(1, "Minimum Experience must be a 1")
@@ -40,7 +40,7 @@ const doctorformSchema = z.object({
 const onboardingPage = () => {
   const [step, setStep] = useState("choose-role");
   const router = useRouter();
-  const {data,fn:submitUserRole,loading} = userFetch(setUserRole)
+  const {data,fn:submitUserRole,loading} = useFetch(setUserRole)
 
   const {
     register,
@@ -52,7 +52,7 @@ const onboardingPage = () => {
   } = useForm({
     resolver: zodResolver(doctorformSchema),
     defaultValues: {
-      speciality: "",
+      specialty: "",
       experience: undefined,
       credentialUrl: "",
       description: "",
@@ -80,15 +80,17 @@ const onboardingPage = () => {
   // Added missing onDoctorSubmit function
   const onDoctorSubmit = async (data) => {
     if (loading) return;
-
+ console.log("FORM DATA:", data);
     const formData = new FormData();
+     
     formData.append("role", "DOCTOR");
     formData.append("specialty", data.specialty);
     formData.append("experience", data.experience.toString());
     formData.append("credentialUrl", data.credentialUrl);
     formData.append("description", data.description);
-
     await submitUserRole(formData);
+
+    reset();
   };
 
   if (step === "choose-role") {
