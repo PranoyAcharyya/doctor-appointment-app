@@ -152,8 +152,8 @@ h1, h2, h3 ,p{
 }
 
 
-@media screen and (min-width: 1200px) and (max-width: 1600px) {
+/* @media screen and (min-width: 1200px) and (max-width: 1600px) {
   html{
     zoom: 90%;
   }
-}
+} */
