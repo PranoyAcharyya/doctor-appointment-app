@@ -3,7 +3,7 @@ import { Doc } from 'zod/v4/core'
 
 const DoctorsLayout = ({ children }) => {
   return (
-    <div className='container mx-auto my-20'>{children}</div>
+    <div className='container px-4 mx-auto my-20'>{children}</div>
   )
 }
 
