@@ -24,6 +24,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { BarLoader } from "react-spinners";
+import { toast } from "sonner";
 
 const PendngDoctors = ({ doctors }) => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -51,6 +53,7 @@ const PendngDoctors = ({ doctors }) => {
     formData.append("status", status);
 
     await submitStatusUpdate(formData);
+    toast.success(`Doctor ${status === "VERIFIED" ? "approved" : "rejected"} successfully!`);
   };
 
    useEffect(() => {
@@ -123,7 +126,7 @@ const PendngDoctors = ({ doctors }) => {
       {/* Doctor Details Dialog */}
       {selectedDoctor && (
         <Dialog open={!!selectedDoctor} onOpenChange={handleCloseDialog} className="dg1">
-          <DialogContent className="max-w-3xl">
+          <DialogContent className="!max-w-3xl w-full">
             <DialogHeader>
               <DialogTitle className="text-xl font-bold">
                 Doctor Verification Details
@@ -235,7 +238,7 @@ const PendngDoctors = ({ doctors }) => {
                   handleUpdateStatus(selectedDoctor.id, "REJECTED")
                 }
                 disabled={loading}
-                className="bg-red-600 hover:bg-red-700"
+                className="bg-red-600 hover:bg-red-700 text-white"
               >
                 <X className="mr-2 h-4 w-4" />
                 Reject
