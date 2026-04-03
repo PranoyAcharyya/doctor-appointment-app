@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/Page-header';
 import React from 'react'
 import { redirect } from "next/navigation";
 import { getDoctorsBySpecialty } from '../../../../../actions/doctorListings';
+import { DoctorCard } from '@/components/doctorCard';
 
 const SpecialityPage = async({params}) => {
     const { specialty } = await params;
