@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../../../../hooks/use-fetch";
 import { updateDoctorStatus } from "../../../../../actions/admin";
 import {
@@ -27,6 +27,7 @@ import {
 
 const PendngDoctors = ({ doctors }) => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+
   const {
     loading,
     data,
@@ -41,6 +42,23 @@ const PendngDoctors = ({ doctors }) => {
     const handleCloseDialog = () => {
     setSelectedDoctor(null);
   };
+
+    const handleUpdateStatus = async (doctorId, status) => {
+    if (loading) return;
+
+    const formData = new FormData();
+    formData.append("doctorId", doctorId);
+    formData.append("status", status);
+
+    await submitStatusUpdate(formData);
+  };
+
+   useEffect(() => {
+    if (data && data?.success) {
+      handleCloseDialog();
+    }
+  }, [data]);
+
 
   return (
     <div>
@@ -107,7 +125,7 @@ const PendngDoctors = ({ doctors }) => {
         <Dialog open={!!selectedDoctor} onOpenChange={handleCloseDialog} className="dg1">
           <DialogContent className="max-w-3xl">
             <DialogHeader>
-              <DialogTitle className="text-xl font-bold text-white">
+              <DialogTitle className="text-xl font-bold">
                 Doctor Verification Details
               </DialogTitle>
               <DialogDescription>
@@ -198,7 +216,7 @@ const PendngDoctors = ({ doctors }) => {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <FileText className="h-5 w-5 text-emerald-400" />
-                  <h3 className="text-white font-medium">
+                  <h3 className=" font-medium">
                     Service Description
                   </h3>
                 </div>
