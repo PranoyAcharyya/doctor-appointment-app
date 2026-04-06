@@ -7,10 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import Pricing from "@/components/pricing";
 import { creditBenefits, features, testimonials } from "@/lib/data";
 
+
 export default function Home() {
   return (
     <>
-      <section className="relative isolate overflow-hidden py-32">
+      <section className="relative isolate py-32 mx-auto">
         {/* Top Gradient */}
         <div
           aria-hidden="true"
