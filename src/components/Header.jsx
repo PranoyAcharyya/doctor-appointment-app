@@ -11,6 +11,7 @@ import {
   CreditCard,
   ShieldCheck,
   Stethoscope,
+  StethoscopeIcon,
   User,
 } from "lucide-react";
 import { checkAndAllocateCredits } from "../../actions/credits";
@@ -46,6 +47,23 @@ const Header = async () => {
             </SignUpButton>
           </Show>
           <Show when="signed-in">
+             {/* Doctor Links */}
+
+            {user?.role === "DOCTOR" && (
+              <Link href="/doctor">
+                <Button
+                  variant="outline"
+                  className="hidden md:inline-flex items-center gap-2"
+                >
+                  <StethoscopeIcon className="h-4 w-4" />
+                  Doctor Dashboard
+                </Button>
+                <Button variant="ghost" className="md:hidden w-10 h-10 p-0">
+                  <Stethoscope className="h-4 w-4" />
+                </Button>
+              </Link>
+            )}
+
             {/* Patient Links */}
             {user?.role === "PATIENT" && (
               <Link href="/appointments">

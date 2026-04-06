@@ -3,11 +3,11 @@
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { success } from "zod";
+
 
 
 export async function setAvailability(formData) {
-    const {} = await auth();
+    const {userId} = await auth();
     if(!userId) throw new Error("Unauthorized");
 
     try {

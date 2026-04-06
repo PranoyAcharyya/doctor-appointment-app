@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { getDoctorAppointments, getDoctorAvailability } from '../../../../actions/doctor';
 import { Calendar, Clock, DollarSign } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import AvailabilitySettings from './_components/AvailablitySettings';
 
 const DoctorDashboard = async() => {
     const user = await getCurrentUser();
@@ -56,9 +57,9 @@ const DoctorDashboard = async() => {
             appointments={appointmentsData.appointments || []}
           /> */}
         </TabsContent>
-        {/* <TabsContent value="availability" className="border-none p-0">
-          <AvailabilitySettings slots={availabilityData.slots || []} />
-        </TabsContent> */}
+        <TabsContent value="availability" className="border-none p-0">
+          <AvailabilitySettings slots={availbilityData.slots || []} />
+        </TabsContent>
         <TabsContent value="earnings" className="border-none p-0">
           {/* <DoctorEarnings
             earnings={earningsData.earnings || {}}
