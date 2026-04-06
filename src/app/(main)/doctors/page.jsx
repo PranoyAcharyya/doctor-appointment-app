@@ -29,8 +29,8 @@ export default function DoctorsPage() {
           <Link key={specialty.name} href={`/doctors/${specialty.name}`}>
             <MagicCard
               mode="orb"
-              glowFrom={isDark ? "#ee4f27" : "#E9D5FF"}
-              glowTo={isDark ? "#6b21ef" : "#FBCFE8"}
+              glowFrom={isDark ? "#022C22" : "#CCFBF1"}
+             glowTo={isDark ? "#0D9488" : "#5EEAD4"}
               className="p-0 rounded-2xl"
             >
               <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
