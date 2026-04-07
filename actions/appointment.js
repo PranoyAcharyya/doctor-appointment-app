@@ -7,12 +7,18 @@ import { deductCreditsForAppointment } from "./credits";
 import { revalidatePath } from "next/cache";
 import { Auth } from "@vonage/auth";
 import { Vonage } from "@vonage/server-sdk";
+import fs from "fs";
+import path from "path";
 
 // Initialize Vonage Video API client
 
+const privateKey = fs.readFileSync(
+  path.join(process.cwd(), process.env.VONAGE_PRIVATE_KEY)
+);
+
 const credentials = new Auth({
   applicationId: process.env.NEXT_PUBLIC_VONAGE_APPLICATION_ID,
-  privateKey: process.env.VONAGE_PRIVATE_KEY,
+  privateKey: privateKey, //  actual key content
 });
 
 const options = {};
@@ -207,9 +213,9 @@ export async function bookAppointment(formData) {
       throw new Error("Insufficient credits");
     }
 
-    const overlappingAppointment = await db.appointment.findUnique({
+    const overlappingAppointment = await db.appointment.findFirst({
       where: {
-        doctorID: doctorId,
+        doctorId: doctorId,
         status: "SCHEDULED",
         OR: [
           {
@@ -262,7 +268,7 @@ export async function bookAppointment(formData) {
         throw new Error(error || "Failed to deduct credits");
       }
 
-      const appointment = await tx.appointment.create({
+      const appointment = await db.appointment.create({
         data: {
           doctorId: doctor.id,
           patientId: patient.id,
@@ -279,7 +285,7 @@ export async function bookAppointment(formData) {
 
     revalidatePath("/appointments");
 
-    return { success: true, appointement: result.appointement };
+    return { success: true, appointment: result.appointment };
   } catch (error) {
     throw new Error("Failed to book appointment" + error.message);
   }
