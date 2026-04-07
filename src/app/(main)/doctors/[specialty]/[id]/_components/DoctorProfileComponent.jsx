@@ -27,9 +27,41 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { MagicCard } from "@/components/ui/magic-card";
 import { useTheme } from "next-themes";
+import { Separator } from "@/components/ui/separator";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import SlotPicker from "./SlotPicker";
+import AppointmentForm from "./AppointmentForm";
 
 const DoctorProfileComponent = ({ doctor, availableDays }) => {
   const [showBooking, setShowBooking] = useState(false);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const router = useRouter();
+
+  const handleSelectSlot = (slot) => {
+    setSelectedSlot(slot);
+  };
+
+  const totalSlots = availableDays.reduce(
+    (total, days) => total + days.slots.length,
+    0,
+  );
+
+  const toggleBooking = () => {
+    setShowBooking(!showBooking);
+    if (!showBooking) {
+      setTimeout(() => {
+        document.getElementById("booking-section")?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  };
+
+
+  const handleBookingComplete = ()=>{
+      router.push('/appointment')
+  }
+
   const [mounted, setMounted] = useState(false);
   const { theme, systemTheme } = useTheme();
   useEffect(() => {
@@ -45,8 +77,8 @@ const DoctorProfileComponent = ({ doctor, availableDays }) => {
         <div className="md:sticky md:top-24">
           <MagicCard
             mode="orb"
-             glowFrom={isDark ? "#022C22" : "#CCFBF1"}
-             glowTo={isDark ? "#0D9488" : "#5EEAD4"}
+            glowFrom={isDark ? "#022C22" : "#CCFBF1"}
+            glowTo={isDark ? "#0D9488" : "#5EEAD4"}
             className="p-3 rounded-2xl"
           >
             <CardContent className="pt-6">
@@ -84,8 +116,8 @@ const DoctorProfileComponent = ({ doctor, availableDays }) => {
                   </div>
 
                   <Button
-                    // onClick={toggleBooking}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 mt-4"
+                    onClick={toggleBooking}
+                    className="w-full  hover:bg-emerald-700 mt-4"
                   >
                     {showBooking ? (
                       <>
@@ -114,12 +146,88 @@ const DoctorProfileComponent = ({ doctor, availableDays }) => {
             <CardDescription>{doctor.specialty}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>Card Content</p>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-emerald-400" />
+                <h3 className="text-white font-medium">Description</h3>
+              </div>
+              <p className="text-muted-foreground whitespace-pre-line">
+                {doctor.description}
+              </p>
+            </div>
+            <Separator className="bg-emerald-900/20" />
+            <div className="space-y-4 mt-4">
+              <div className="flex items-center gap-2">
+                <Clock className="h-5 w-5 text-emerald-400" />
+                <h3 className="font-medium">Avialability</h3>
+              </div>
+            </div>
+            {totalSlots > 0 ? (
+              <>
+                <div className="flex items-center mt-4">
+                  <Calendar className="h-5 w-5 text-emerald-400 mr-2" />
+                  <p className="text-muted-foreground">
+                    {totalSlots} time slots available for booking over the next
+                    4 days
+                  </p>
+                </div>
+              </>
+            ) : (
+              <>
+                <Alert>
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    No available slots for the next 4 days. Please check back
+                    later.
+                  </AlertDescription>
+                </Alert>
+              </>
+            )}
           </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
         </Card>
+        {showBooking && (
+          <div id="booking-section">
+            <Card>
+              <CardHeader className={"border-emerald-900/20"}>
+                <CardTitle className="text-xl font-bold">
+                  Book an appointment
+                </CardTitle>
+                <CardDescription>
+                  Select a time slot and put details
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {totalSlots > 0 ? (
+                  <>
+                    {!selectedSlot && (
+                      <SlotPicker
+                        days={availableDays}
+                        onSelectedSlot={handleSelectSlot}
+                      />
+                    )}
+                    {selectedSlot && (
+                      <AppointmentForm
+                        doctorId={doctor.id}
+                        slot={selectedSlot}
+                        onBack={() => setSelectedSlot(null)}
+                        onComplete={handleBookingComplete}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <div>
+                    <h3 className="text-xl font-bold">No available slots</h3>
+                    <p className="text-muted-foreground">
+                      This doctor doesn&apos;t have any available appointment
+                      slots for the next 4 days. Please check back later or try
+                      another doctor.
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
