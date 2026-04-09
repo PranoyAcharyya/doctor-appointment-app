@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Pricing from "@/components/pricing";
 import { creditBenefits, features, testimonials } from "@/lib/data";
-
+import { TextAnimate } from "@/components/ui/text-animate";
 
 export default function Home() {
   return (
@@ -69,7 +69,7 @@ export default function Home() {
             {/* Image */}
             <div className="relative h-[400px] lg:h-[500px] rounded-xl overflow-hidden">
               <Image
-                src="/banner2.png"
+                src="/OnlineDoctor.png"
                 alt="Doctor consultation"
                 fill
                 priority

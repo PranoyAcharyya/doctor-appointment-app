@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
 import {ui} from "@clerk/themes";
 import { Toaster } from "sonner";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   weight: ['400', '700'], // Specify the weights you need
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
             
             {children}
             <Toaster richColors />
+            <Footer/>
             </ClerkProvider>
         </ThemeProvider>
       </body>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useFetch from "../../../../../hooks/use-fetch";
-import { setAvailability } from "../../../../../actions/doctor";
+import { setAvailabilitySlots } from "../../../../../actions/doctor";
 import {
   Card,
   CardAction,
@@ -23,7 +23,7 @@ const AvailabilitySettings = ({ slots }) => {
   const [showForm, setShowForm] = useState(false);
 
   // Custom hook for server action
-  const { loading, fn: submitSlots, data } = useFetch(setAvailability);
+  const { loading, fn: submitSlots, data } = useFetch(setAvailabilitySlots);
 
   const {
     register,
