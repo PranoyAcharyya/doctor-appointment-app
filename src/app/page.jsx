@@ -11,7 +11,7 @@ import { TextAnimate } from "@/components/ui/text-animate";
 export default function Home() {
   return (
     <>
-      <section className="relative isolate py-32 mx-auto">
+      <section className="relative isolate py-32 mx-auto container-xl">
         {/* Top Gradient */}
         <div
           aria-hidden="true"
@@ -30,7 +30,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <Badge className="px-4 py-2 bg-green-50 dark:bg-green-900">
+              <Badge className="px-4 py-5 bg-green-50 dark:bg-green-900">
                 Healthcare made simple
               </Badge>
 
@@ -99,7 +99,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-muted/30 container-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -134,7 +134,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section with green medical styling */}
-      <section id="pricing" className="py-20">
+      <section id="pricing" className="py-20 container-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge
@@ -198,7 +198,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials with green medical accents */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-muted/30 container-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge
@@ -246,7 +246,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section with green medical styling */}
-      <section className="py-20">
+      <section className="py-20 container-xl">
         <div className="container mx-auto px-4">
           <Card className="bg-gradient-to-r from-emerald-900/30 to-emerald-950/20 border-emerald-800/20">
             <CardContent className="p-8 md:p-12 lg:p-16 relative overflow-hidden">

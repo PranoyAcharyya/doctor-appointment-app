@@ -3,15 +3,15 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
-import {ui} from "@clerk/themes";
+import { ui } from "@clerk/themes";
 import { Toaster } from "sonner";
 import Footer from "@/components/Footer";
 
 const poppins = Poppins({
-  weight: ['400', '700'], // Specify the weights you need
-  subsets: ['latin'],
-  display: 'swap', // Ensures the font is displayed as soon as it is available
-  variable: '--font-poppins', // Define a CSS variable name
+  weight: ["400", "700"], // Specify the weights you need
+  subsets: ["latin"],
+  display: "swap", // Ensures the font is displayed as soon as it is available
+  variable: "--font-poppins", // Define a CSS variable name
 });
 
 export const metadata = {
@@ -34,14 +34,13 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          
           <ClerkProvider ui={ui}>
             <Header />
-            
+
             {children}
             <Toaster richColors />
-            <Footer/>
-            </ClerkProvider>
+            <Footer />
+          </ClerkProvider>
         </ThemeProvider>
       </body>
     </html>

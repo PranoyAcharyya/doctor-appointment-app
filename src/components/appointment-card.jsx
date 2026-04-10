@@ -51,16 +51,19 @@ export function AppointmentCard({
     fn: submitCancel,
     data: cancelData,
   } = useFetch(cancelAppointment);
+
   const {
     loading: notesLoading,
     fn: submitNotes,
     data: notesData,
   } = useFetch(addAppointmentNotes);
+
   const {
     loading: tokenLoading,
     fn: submitTokenRequest,
     data: tokenData,
   } = useFetch(generateVideoToken);
+  
   const {
     loading: completeLoading,
     fn: submitMarkCompleted,
@@ -236,7 +239,7 @@ export function AppointmentCard({
                 {otherPartyIcon}
               </div>
               <div>
-                <h3 className="font-medium text-white">
+                <h3 className="font-medium">
                   {userRole === "DOCTOR"
                     ? otherParty.name
                     : `Dr. ${otherParty.name}`}
@@ -334,7 +337,7 @@ export function AppointmentCard({
                   {otherPartyIcon}
                 </div>
                 <div>
-                  <p className="text-white font-medium">
+                  <p className="font-medium">
                     {userRole === "DOCTOR"
                       ? otherParty.name
                       : `Dr. ${otherParty.name}`}
@@ -361,13 +364,13 @@ export function AppointmentCard({
               <div className="flex flex-col gap-1">
                 <div className="flex items-center">
                   <Calendar className="h-5 w-5 text-emerald-400 mr-2" />
-                  <p className="text-white">
+                  <p>
                     {formatDateTime(appointment.startTime)}
                   </p>
                 </div>
                 <div className="flex items-center">
                   <Clock className="h-5 w-5 text-emerald-400 mr-2" />
-                  <p className="text-white">
+                  <p>
                     {formatTime(appointment.startTime)} -{" "}
                     {formatTime(appointment.endTime)}
                   </p>
@@ -403,7 +406,7 @@ export function AppointmentCard({
                     : "Your Description"}
                 </h4>
                 <div className="p-3 rounded-md bg-muted/20 border border-emerald-900/20">
-                  <p className="text-white whitespace-pre-line">
+                  <p className=" whitespace-pre-line">
                     {appointment.patientDescription}
                   </p>
                 </div>
@@ -503,7 +506,7 @@ export function AppointmentCard({
               ) : (
                 <div className="p-3 rounded-md bg-muted/20 border border-emerald-900/20 min-h-[80px]">
                   {appointment.notes ? (
-                    <p className="text-white whitespace-pre-line">
+                    <p className=" whitespace-pre-line">
                       {appointment.notes}
                     </p>
                   ) : (

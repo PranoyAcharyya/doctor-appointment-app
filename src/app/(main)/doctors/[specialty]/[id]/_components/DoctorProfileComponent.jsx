@@ -59,7 +59,7 @@ const DoctorProfileComponent = ({ doctor, availableDays }) => {
 
 
   const handleBookingComplete = ()=>{
-      router.push('/appointment')
+      router.push('/appointments')
   }
 
   const [mounted, setMounted] = useState(false);
