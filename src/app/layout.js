@@ -38,13 +38,13 @@ export const metadata = {
   creator: "Medimeet",
   publisher: "Medimeet",
 
-  metadataBase: new URL("https://medimeet.com"),
+  metadataBase: new URL("https://pranoy-doctor-appoinemnt-site.vercel.app/"),
 
   openGraph: {
     title: "Medimeet | Online Doctor Consultation Platform",
     description:
       "Consult certified doctors online via chat or video call. Get prescriptions and healthcare advice instantly with Medimeet.",
-    url: "https://medimeet.com",
+    url: "https://pranoy-doctor-appoinemnt-site.vercel.app/",
     siteName: "Medimeet",
     images: [
       {
