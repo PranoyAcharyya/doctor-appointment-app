@@ -6,13 +6,17 @@ import { Calendar, Clock, DollarSign } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import AvailabilitySettings from './_components/AvailablitySettings';
 import DoctorAppointmentsList from './_components/appointments-list';
+import { DoctorEarnings } from './_components/doctor-earnings';
+import { getDoctorEarnings, getDoctorPayouts } from '../../../../actions/payout';
 
 const DoctorDashboard = async() => {
     const user = await getCurrentUser();
 
-    const [appointmentsData,availbilityData] = await Promise.all([
+    const [appointmentsData,availbilityData,earningsData, payoutsData] = await Promise.all([
         getDoctorAppointments(),
         getDoctorAvailability(),
+        getDoctorEarnings(),
+      getDoctorPayouts(),
     ])
 
     if(user?.role !== "DOCTOR"){
@@ -62,10 +66,10 @@ const DoctorDashboard = async() => {
           <AvailabilitySettings slots={availbilityData.slots || []} />
         </TabsContent>
         <TabsContent value="earnings" className="border-none p-0">
-          {/* <DoctorEarnings
+          <DoctorEarnings
             earnings={earningsData.earnings || {}}
             payouts={payoutsData.payouts || []}
-          /> */}
+          />
         </TabsContent>
       </div>
     </Tabs>
