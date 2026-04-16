@@ -178,6 +178,3 @@ This project demonstrates:
 
 ---
 
-## 📸 Screenshots
-
-*Add screenshots here*
